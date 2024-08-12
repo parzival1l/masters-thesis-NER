@@ -1,0 +1,3 @@
+mlflow:
+  experiment_name: NER_model
+  base_run_name: Run_

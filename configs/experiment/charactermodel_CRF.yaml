@@ -1,0 +1,46 @@
+name: NER_model_test
+word_emb_model: bert-base-uncased
+char_emb_model: google/canine-c
+CRF_ON : True
+POS_ON : True
+train_test_split : 0.12
+learning_rate : 0.001
+num_tags : 8
+mlflow:
+  experiment_name: NER_model
+  description: Model with 3M training_data
+  run_name: Test-CRF_Model_3M_epoch4
+language_model:
+  learning_rate: 5e-3
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+
+tokenizer:
+  add_special_tokens : False
+  special_token_label : 0
+  char_max_length: 512
+  word_max_length: 34
+  padding: max_length
+  truncation: True
+  return_tensors: pt
+  label_column : ner_tags
+
+trainer:
+  devices: auto
+  accelerator: auto
+  max_epochs: 6
+
+dataloader:
+  batch_size: 24
+  shuffle: True
+  train_test_split: 0.12
+model:
+  save_path : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/SavedModels/3M_model_CRF/
+  load_path : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/SavedModels/3M_model_CRF/checkpoints/epoch=4-step=20905.ckpt
+data:
+  label2index : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/Data/label2index.json
+  pos2index : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/Data/pos2index.json
+  datapath : /dbfs/FileStore/MachineLearning/src/NERIngredients/RecipeIngredientsLabeller/trainset_3M.csv
+  val_datapath : /dbfs/FileStore/MachineLearning/src/NERIngredients/RecipeIngredientsLabeller/ValidationSetAnnotated_verified.csv
+  sample_size : 5000000

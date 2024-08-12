@@ -1,0 +1,50 @@
+name: NER_model
+word_emb_model: bert-large-uncased
+word_tokenizer : bert-large-uncased
+char_emb_model: google/canine-c
+CRF_ON : False
+POS_ON : False
+freeze_word_emb : True
+freeze_char_emb : True
+final_emb_size : 3072
+learning_rate : 0.001
+num_tags : 11
+mlflow:
+  experiment_name: NER_model
+  description: A description
+  run_name: Cased Model training
+language_model:
+  learning_rate: 5e-3
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+
+tokenizer:
+  add_special_tokens : True
+  special_token_label : -100
+  char_max_length: 256
+  word_max_length: 64
+  padding: max_length
+  truncation: True
+  return_tensors: pt
+  label_column : ner_tags
+
+trainer:
+  devices: auto
+  accelerator: auto
+  max_epochs: 25
+
+dataloader:
+  train_test_split: 0.02
+  batch_size : 256
+  train_shuffle : False
+  val_shuffle : False
+model:
+  save_path : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/SavedModels/TasteSet-LL-Bert-LG/
+  load_path : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/SavedModels/TasteSet-LL-Bert-LG/state_dict.pth
+data:
+  label2index : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/Data/recipe_datasetlabels.json
+  pos2index : /dbfs/FileStore/MachineLearning/src/Spikes/CharEncodingModel/Data/recipe_pos.json
+  datapath : /dbfs/FileStore/MachineLearning/src/NERIngredients/RecipeIngredientsLabeller/RecipeIngredients.csv
+  val_datapath : /dbfs/FileStore/MachineLearning/src/NERIngredients/RecipeIngredientsLabeller/Rceip_val_dataset.csv
+  sample_size : 100

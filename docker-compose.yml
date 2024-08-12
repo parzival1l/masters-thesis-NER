@@ -1,0 +1,8 @@
+services:
+  workspace:
+    build: .
+    ports:
+      - "8111:8111"
+    volumes:
+      - .:/workspace
+    entrypoint: ["tail", "-f", "/dev/null"]

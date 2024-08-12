@@ -1,0 +1,5 @@
+mlflow:
+  _target_: lightning.pytorch.loggers.mlflow.MLFlowLogger
+  experiment_name: NER_model
+  tracking_uri: ${paths.log_dir}${task_name}/mlflow-tracking
+  artifact_location: null
