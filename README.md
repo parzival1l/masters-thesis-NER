@@ -1,5 +1,6 @@
 # masters-thesis-NER
-Contains the codes developed for my master's thesis - Improving Named Entity Recognition
+This repo contains the codes developed for ingredient extraction from recipe sentences using a combination of character embedding + word embedding BERT model. This is especially useful and efficient in cases where the entity is mispelled. (e.g, 1 cup of suger)
+The code is developed using pytorch lightning , experients are monitored using MLflow and config management using Hydra. 
 
 # Usage
 ## 1. Getting Started with Docker
